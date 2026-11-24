@@ -29,9 +29,14 @@ RANT = (
 
 
 def main() -> None:
+    # The gate refuses anything outside 1..400 characters, so check
+    # before writing: a rant that is too long never reaches the judge.
+    text = RANT.strip()
+    if not 1 <= len(text) <= 400:
+        raise ValueError(f"rant is {len(text)} characters, must be 1..400")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(RANT)
+        f.write(text)
 
 
 if __name__ == "__main__":
